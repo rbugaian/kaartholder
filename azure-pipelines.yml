@@ -39,7 +39,6 @@ steps:
     targetFolder: '$(build.artifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
-- task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'Cardholder-Debug'
@@ -47,7 +46,7 @@ steps:
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'App Center'
-    appSlug: 'Cardholder'
+    appSlug: 'bugaian-roman-jlnz/Cardholder-Android'
     appFile: 'app/build/outputs/apk/debug/app-debug.apk'
     symbolsOption: 'Android'
     releaseNotesOption: 'file'
