@@ -21,7 +21,7 @@ steps:
     versionFormat: 'custom'
     customBuildRegex: '(?:\d+.\d+.\d+.)(\d+)'
     replaceVersionFormat: 'custom'
-    customReplaceRegex: 'versionName=“\d+.\d+.\d+'
+    customReplaceRegex: 'versionName “\d+.\d+.\d+'
     replacePrefix: 'versionName "'
 
 - task: Gradle@2
