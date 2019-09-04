@@ -39,3 +39,12 @@ steps:
     targetFolder: '$(build.artifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
+- task: AppCenterDistribute@3
+  inputs:
+    serverEndpoint: 'App Center'
+    appSlug: 'Cardholder'
+    appFile: 'app/build/outputs/apk/debug/app-debug.apk'
+    symbolsOption: 'Android'
+    releaseNotesOption: 'file'
+    releaseNotesFile: 'CHANGELOG'
+    destinationType: 'groups'
