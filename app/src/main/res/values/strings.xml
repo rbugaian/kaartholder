@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">cardholder-android</string>
+    <string name="hit_plus">Hit + to add a card</string>
 </resources>
