@@ -1,5 +1,6 @@
 # Starter pipeline
 
+
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -12,12 +13,16 @@ pool:
 
 steps:
 
-- task: android-manifest-version@1
+- task: VersionAssemblies@2
   inputs:
-    sourcePath: 'app/src/main/AndroidManifest.xml'
-    versionCodeOption: 'buildid'
-    versionCode: '$(Build.BuildId)'
-    printFile: true
+    sourcePath: 'app/'
+    filePattern: 'build.gradle'
+    versionSource: 'buildNumber'
+    versionFormat: 'custom'
+    customBuildRegex: '(?:\d+.\d+.\d+.)(\d+)'
+    replaceVersionFormat: 'custom'
+    customReplaceRegex: 'versionName=“\d+.\d+.\d+'
+    replacePrefix: 'versionName "'
 
 - task: Gradle@2
   inputs:
