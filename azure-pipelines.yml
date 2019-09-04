@@ -39,6 +39,11 @@ steps:
     targetFolder: '$(build.artifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Cardholder-Debug'
+    publishLocation: 'Container'
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'App Center'
