@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">cardholder-android</string>
     <string name="hit_plus">Hit + to add a card</string>
+    <string name="card_name_hint">Name your card</string>
+    <string name="bank_account_hint">Bank account</string>
+    <string name="expiration_date_hint">Exp. date</string>
+    <string name="card_number_hint">Enter card number</string>
 </resources>
