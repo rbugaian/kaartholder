@@ -3,9 +3,13 @@ package com.example.cardholder_android.Activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cardholder_android.CardDBHelper
+import com.example.cardholder_android.CardListAdapter
 import com.example.cardholder_android.R
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_main.addCardButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,14 +24,37 @@ class MainActivity : AppCompatActivity() {
         dbHelper = CardDBHelper(this)
 
         if (dbHelper.isEmpty()) {
-            addCardButton.setOnClickListener() {
+            addCardButton.setOnClickListener {
                 val intent = Intent(this, AddCardActivity::class.java)
                 startActivity(intent)
             }
         } else {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+         /*   val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)*/
+            setContentView(R.layout.activity_home)
 
+            dbHelper = CardDBHelper(this)
+
+            renderCards()
+
+            addCardButton.setOnClickListener {
+                /*val intent = Intent(this, AddCardActivity::class.java)
+                startActivity(intent)*/
+
+                setContentView(R.layout.activity_home)
+            }
         }
+
+    }
+
+    private fun renderCards() {
+        val cardList = dbHelper.allCards
+        val adapter = CardListAdapter(cardList)
+
+        rvCardList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rvCardList.adapter = adapter
+
+        adapter.notifyDataSetChanged()
     }
 }
+

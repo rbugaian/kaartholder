@@ -23,8 +23,12 @@ class CardDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val CREATE_TABLE_QUERY = ("CREATE TABLE $TABLE_NAME ( $COL_ID INTEGER PRIMARY KEY, $COL_CARD_NAME TEXT, " +
-                "$COL_CARD_NUMBER TEXT, $COL_BANK_ACCOUNT TEXT, $COL_EXP_DATE TEXT)")
+        val CREATE_TABLE_QUERY = ("CREATE TABLE $TABLE_NAME ( " +
+                "$COL_ID INTEGER PRIMARY KEY, " +
+                "$COL_CARD_NAME TEXT, " +
+                "$COL_CARD_NUMBER TEXT, " +
+                "$COL_BANK_ACCOUNT TEXT, " +
+                "$COL_EXP_DATE TEXT)")
 
         db!!.execSQL(CREATE_TABLE_QUERY)
     }
@@ -84,7 +88,6 @@ class CardDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 
     fun deleteCard(card: Card) {
         val db: SQLiteDatabase = this.writableDatabase
-
 
         db.delete(TABLE_NAME, "$COL_ID = ?", arrayOf(card.id.toString()))
         db.close()

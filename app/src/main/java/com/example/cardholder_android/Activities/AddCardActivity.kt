@@ -14,6 +14,10 @@ import kotlinx.android.synthetic.main.add_card_activity.*
 
 class AddCardActivity : AppCompatActivity() {
 
+    companion object {
+        lateinit var dbHelper: CardDBHelper
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_card_activity)
@@ -29,7 +33,7 @@ class AddCardActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 var cardNumber = cardNumberView.text.toString()
                 if(cardNumber.length == 4 || cardNumber.length == 9 || cardNumber.length == 14) {
-                    cardNumber = cardNumber + " "
+                    cardNumber += " "
                     cardNumberView.setText(cardNumber)
                     cardNumberView.setSelection(cardNumber.length)
                 }
@@ -49,7 +53,7 @@ class AddCardActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 var expirationDate = expirationDateView.text.toString()
                 if (expirationDate.length == 2) {
-                    expirationDate = expirationDate + "/"
+                    expirationDate += "/"
                     expirationDateView.setText(expirationDate)
                     expirationDateView.setSelection(expirationDate.length)
                 }
@@ -73,7 +77,8 @@ class AddCardActivity : AppCompatActivity() {
 
             dbHelper.addCard(card)
 
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }
