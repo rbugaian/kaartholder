@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         } else {
-         /*   val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)*/
             setContentView(R.layout.activity_home)
 
             dbHelper = CardDBHelper(this)
@@ -38,9 +36,6 @@ class MainActivity : AppCompatActivity() {
             renderCards()
 
             addCardButton.setOnClickListener {
-                /*val intent = Intent(this, AddCardActivity::class.java)
-                startActivity(intent)*/
-
                 setContentView(R.layout.activity_home)
             }
         }

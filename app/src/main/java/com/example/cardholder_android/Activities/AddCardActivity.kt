@@ -32,7 +32,7 @@ class AddCardActivity : AppCompatActivity() {
 
             override fun afterTextChanged(p0: Editable?) {
                 var cardNumber = cardNumberView.text.toString()
-                if(cardNumber.length == 4 || cardNumber.length == 9 || cardNumber.length == 14) {
+                if (cardNumber.length == 4 || cardNumber.length == 9 || cardNumber.length == 14) {
                     cardNumber += " "
                     cardNumberView.setText(cardNumber)
                     cardNumberView.setSelection(cardNumber.length)
@@ -45,7 +45,6 @@ class AddCardActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
-
 
         //Expiration date number formatting
         expirationDateView.addTextChangedListener(object : TextWatcher {
