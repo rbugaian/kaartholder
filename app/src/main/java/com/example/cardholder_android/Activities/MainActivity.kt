@@ -3,6 +3,7 @@ package com.example.cardholder_android.Activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cardholder_android.CardDBHelper
@@ -36,8 +37,10 @@ class MainActivity : AppCompatActivity() {
             renderCards()
 
             addCardButton.setOnClickListener {
-                setContentView(R.layout.activity_home)
+                val intent = Intent(this, AddCardActivity::class.java)
+                startActivity(intent)
             }
+
         }
 
     }

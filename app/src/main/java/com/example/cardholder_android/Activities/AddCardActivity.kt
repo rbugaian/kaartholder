@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cardholder_android.Activities.MainActivity.Companion.dbHelper
 import com.example.cardholder_android.CardDBHelper
 import com.example.cardholder_android.Models.Card
 import com.example.cardholder_android.R
