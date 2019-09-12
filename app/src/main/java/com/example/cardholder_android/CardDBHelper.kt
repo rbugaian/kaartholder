@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.cardholder_android.Models.Card
 
-class CardDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VER) {
+class CardDBHelper(context: Context) :
+    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VER) {
 
     companion object {
         private val DATABASE_VER = 1
@@ -23,8 +24,12 @@ class CardDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val CREATE_TABLE_QUERY = ("CREATE TABLE $TABLE_NAME ( $COL_ID INTEGER PRIMARY KEY, $COL_CARD_NAME TEXT, " +
-                "$COL_CARD_NUMBER TEXT, $COL_BANK_ACCOUNT TEXT, $COL_EXP_DATE TEXT)")
+        val CREATE_TABLE_QUERY = ("CREATE TABLE $TABLE_NAME ( " +
+                "$COL_ID INTEGER PRIMARY KEY, " +
+                "$COL_CARD_NAME TEXT, " +
+                "$COL_CARD_NUMBER TEXT, " +
+                "$COL_BANK_ACCOUNT TEXT, " +
+                "$COL_EXP_DATE TEXT)")
 
         db!!.execSQL(CREATE_TABLE_QUERY)
     }
@@ -35,7 +40,7 @@ class CardDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     }
 
     //CRUD
-    val allCards:ArrayList<Card>
+    val allCards: ArrayList<Card>
         get() {
             val lstCard = ArrayList<Card>()
             val selectQuery = "SELECT * FROM $TABLE_NAME"
@@ -66,11 +71,11 @@ class CardDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         values.put(COL_BANK_ACCOUNT, card.bankAccount)
         values.put(COL_EXP_DATE, card.expDate)
 
-        db.insert(TABLE_NAME, null ,values)
+        db.insert(TABLE_NAME, null, values)
         db.close()
     }
 
-    fun updateCard(card: Card):Int {
+    fun updateCard(card: Card): Int {
         val db: SQLiteDatabase = this.writableDatabase
         val values = ContentValues()
         values.put(COL_ID, card.id)
@@ -85,15 +90,14 @@ class CardDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     fun deleteCard(card: Card) {
         val db: SQLiteDatabase = this.writableDatabase
 
-
         db.delete(TABLE_NAME, "$COL_ID = ?", arrayOf(card.id.toString()))
         db.close()
     }
 
-    fun isEmpty():Boolean {
+    fun isEmpty(): Boolean {
         val db: SQLiteDatabase = this.writableDatabase
         val selectQuery = "SELECT * FROM $TABLE_NAME"
         val cursor: Cursor = db.rawQuery(selectQuery, null)
-        return(cursor.count == 0)
+        return (cursor.count == 0)
     }
 }

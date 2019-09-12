@@ -6,13 +6,16 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cardholder_android.Activities.MainActivity.Companion.dbHelper
 import com.example.cardholder_android.CardDBHelper
 import com.example.cardholder_android.Models.Card
 import com.example.cardholder_android.R
 import kotlinx.android.synthetic.main.add_card_activity.*
 
 class AddCardActivity : AppCompatActivity() {
+
+    companion object {
+        lateinit var dbHelper: CardDBHelper
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +31,8 @@ class AddCardActivity : AppCompatActivity() {
 
             override fun afterTextChanged(p0: Editable?) {
                 var cardNumber = cardNumberView.text.toString()
-                if(cardNumber.length == 4 || cardNumber.length == 9 || cardNumber.length == 14) {
-                    cardNumber = cardNumber + " "
+                if (cardNumber.length == 4 || cardNumber.length == 9 || cardNumber.length == 14) {
+                    cardNumber += " "
                     cardNumberView.setText(cardNumber)
                     cardNumberView.setSelection(cardNumber.length)
                 }
@@ -42,14 +45,13 @@ class AddCardActivity : AppCompatActivity() {
             }
         })
 
-
         //Expiration date number formatting
         expirationDateView.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {
                 var expirationDate = expirationDateView.text.toString()
                 if (expirationDate.length == 2) {
-                    expirationDate = expirationDate + "/"
+                    expirationDate += "/"
                     expirationDateView.setText(expirationDate)
                     expirationDateView.setSelection(expirationDate.length)
                 }
@@ -73,7 +75,8 @@ class AddCardActivity : AppCompatActivity() {
 
             dbHelper.addCard(card)
 
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }
