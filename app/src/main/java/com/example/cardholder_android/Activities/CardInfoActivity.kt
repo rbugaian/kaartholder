@@ -1,5 +1,6 @@
 package com.example.cardholder_android.Activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
@@ -39,11 +40,17 @@ class CardInfoActivity : AppCompatActivity() {
             card.id = cardId
 
             dbHelper.updateCard(card)
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
 
         //Deleting card information
         btnDeleteCard.setOnClickListener {
             dbHelper.deleteCard(card)
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }

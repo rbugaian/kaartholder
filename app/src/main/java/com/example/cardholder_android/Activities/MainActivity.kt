@@ -1,14 +1,11 @@
 package com.example.cardholder_android.Activities
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cardholder_android.Activities.MainActivity.Companion.dbHelper
 import com.example.cardholder_android.CardDBHelper
 import com.example.cardholder_android.CardListAdapter
 import com.example.cardholder_android.Models.Card
@@ -28,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         dbHelper = CardDBHelper(this)
 
+        //If database is empty, set empty layout
         if (!dbHelper.isEmpty()) {
             setContentView(R.layout.activity_home)
 
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    //Function displaying all cards
     private fun renderCards() {
         val cardList = dbHelper.allCards
         val adapter = CardListAdapter(cardList, {card: Card -> cardItemClicked(card)})
@@ -55,9 +53,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun cardItemClicked(cardItem : Card) {
         Toast.makeText(this, "Clicked: ${cardItem.cardName}", Toast.LENGTH_LONG).show()
-        Log.d("I AM HERE:", "Starting CardInfoActivity")
+
         val intent = Intent(this, CardInfoActivity::class.java)
-        Log.d("I AM HERE:", "Started CardInfoActivity")
         intent.putExtra("card_id", cardItem.id)
         startActivity(intent)
     }
