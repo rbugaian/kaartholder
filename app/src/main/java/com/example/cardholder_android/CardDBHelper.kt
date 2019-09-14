@@ -75,6 +75,20 @@ class CardDBHelper(context: Context) :
         db.close()
     }
 
+    fun getCardById(cardId : Int):Card {
+        val db: SQLiteDatabase = this.writableDatabase
+        val cursor : Cursor = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COL_ID = " + cardId, null)
+        val card = Card()
+        card.id = cursor.getInt(cursor.getColumnIndex(COL_ID))
+        card.cardName = cursor.getString(cursor.getColumnIndex(COL_CARD_NAME))
+        card.cardNumber = cursor.getString(cursor.getColumnIndex(COL_CARD_NUMBER))
+        card.bankAccount = cursor.getString(cursor.getColumnIndex(COL_BANK_ACCOUNT))
+        card.expDate = cursor.getString(cursor.getColumnIndex(COL_EXP_DATE))
+
+        cursor.close()
+        return card
+    }
+
     fun updateCard(card: Card): Int {
         val db: SQLiteDatabase = this.writableDatabase
         val values = ContentValues()
