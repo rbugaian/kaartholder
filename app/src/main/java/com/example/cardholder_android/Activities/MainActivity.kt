@@ -53,13 +53,12 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-
     private fun cardItemClicked(cardItem : Card) {
         Toast.makeText(this, "Clicked: ${cardItem.cardName}", Toast.LENGTH_LONG).show()
         Log.d("I AM HERE:", "Starting CardInfoActivity")
         val intent = Intent(this, CardInfoActivity::class.java)
         Log.d("I AM HERE:", "Started CardInfoActivity")
-        intent.putExtra("CARD ID", cardItem.id)
+        intent.putExtra("card_id", cardItem.id)
         startActivity(intent)
     }
 }
