@@ -1,8 +1,10 @@
 package com.example.cardholder_android.Activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         dbHelper = CardDBHelper(this)
 
-        //If database is empty, set empty layout
         if (!dbHelper.isEmpty()) {
             setContentView(R.layout.activity_home)
 
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Function displaying all cards
+
     private fun renderCards() {
         val cardList = dbHelper.allCards
         val adapter = CardListAdapter(cardList, {card: Card -> cardItemClicked(card)})

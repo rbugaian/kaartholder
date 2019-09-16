@@ -48,7 +48,8 @@
                     android:ems="3" android:layout_marginLeft="10dp" android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp" android:layout_marginRight="10dp"
                     android:layout_marginEnd="10dp" android:layout_marginBottom="10dp" android:textSize="22sp"
-                    android:maxLength="5"/>
+                    android:maxLength="5"
+                    android:digits="0123456789/"/>
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etChangeCardNumber"
@@ -59,7 +60,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textSize="24sp"
-                    android:maxLength="19"/>
+                    android:maxLength="19"
+                    android:digits="0123456789 "/>
 
         </RelativeLayout>
 

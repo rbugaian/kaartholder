@@ -2,11 +2,11 @@ package com.example.cardholder_android.Activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.text.InputType
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cardholder_android.CardDBHelper
-import com.example.cardholder_android.Models.Card
 import com.example.cardholder_android.R
+import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.card_info_activity.*
 
 class CardInfoActivity : AppCompatActivity() {
@@ -30,6 +30,20 @@ class CardInfoActivity : AppCompatActivity() {
         etChangeBankAccount.setText(card.bankAccount)
         etChangeCardNumber.setText(card.cardNumber)
         etChangeExpDate.setText(card.expDate)
+
+        //Input types for editViews
+        etChangeBankAccount.setInputType(InputType.TYPE_CLASS_NUMBER)
+        etChangeName.setInputType(InputType.TYPE_CLASS_TEXT)
+
+        //Card Number text formatting
+        val cardNumberViewListener = MaskedTextChangedListener("[0000] [0000] [0000] [0000]", etChangeCardNumber)
+        etChangeCardNumber.addTextChangedListener(cardNumberViewListener)
+        etChangeCardNumber.onFocusChangeListener = cardNumberViewListener
+
+        //Expiration date text formatting
+        val expDateViewListener = MaskedTextChangedListener("[00]{/}[00]", etChangeExpDate)
+        etChangeExpDate.addTextChangedListener(expDateViewListener)
+        etChangeExpDate.onFocusChangeListener = expDateViewListener
 
         //Editing card information
         btnEditCard.setOnClickListener {

@@ -62,20 +62,7 @@ class CardDBHelper(context: Context) :
             return lstCard
         }
 
-    fun addCard(card: Card) {
-        val db: SQLiteDatabase = this.writableDatabase
-        val values = ContentValues()
-        /*values.put(COL_ID, card.id)*/
-        values.put(COL_CARD_NAME, card.cardName)
-        values.put(COL_CARD_NUMBER, card.cardNumber)
-        values.put(COL_BANK_ACCOUNT, card.bankAccount)
-        values.put(COL_EXP_DATE, card.expDate)
-
-        db.insert(TABLE_NAME, null, values)
-        db.close()
-    }
-
-    fun getCardById(cardId : Int): Card {
+    fun getCardById(cardId : Int):Card {
         val db: SQLiteDatabase = this.writableDatabase
         val cursor : Cursor = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COL_ID = " + cardId, null)
 
@@ -91,6 +78,19 @@ class CardDBHelper(context: Context) :
             return card
         }
         return Card()
+    }
+
+    fun addCard(card: Card) {
+        val db: SQLiteDatabase = this.writableDatabase
+        val values = ContentValues()
+        /*values.put(COL_ID, card.id)*/
+        values.put(COL_CARD_NAME, card.cardName)
+        values.put(COL_CARD_NUMBER, card.cardNumber)
+        values.put(COL_BANK_ACCOUNT, card.bankAccount)
+        values.put(COL_EXP_DATE, card.expDate)
+
+        db.insert(TABLE_NAME, null, values)
+        db.close()
     }
 
     fun updateCard(card: Card): Int {

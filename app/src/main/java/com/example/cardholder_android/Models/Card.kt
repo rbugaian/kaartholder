@@ -1,7 +1,5 @@
 package com.example.cardholder_android.Models
 
-import java.io.Serializable
-
 class Card {
 
     var id: Int = 0
