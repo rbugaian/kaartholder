@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/tools">
+
 
     <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/itemRootView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:minHeight="200dp"
             card_view:cardBackgroundColor="#F5F5F5"
             card_view:cardCornerRadius="8dp"
             card_view:cardElevation="10dp">
@@ -27,7 +30,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
             <TextView
                     android:id="@+id/cardNumberView"
@@ -35,7 +38,74 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/cardNameView"
                     android:layout_margin="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
+
+            <TextView
+                    android:id="@+id/pinLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@id/cardNumberView"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="PIN"/>
+
+            <EditText
+                    android:id="@+id/cardPin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pinLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"
+                    android:inputType="numberPassword"
+                    android:focusable="false"
+                    android:background="@null"
+                    android:text="1242"
+                    />
+
+            <TextView
+                    android:id="@+id/cvvLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_alignTop="@id/pinLabel"
+                    android:layout_toRightOf="@id/pinLabel"
+                    android:layout_toEndOf="@id/pinLabel"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_below="@id/cardNumberView"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="CVV2/CSC"/>
+
+            <EditText
+                    android:id="@+id/cardCvv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pinLabel"
+                    android:layout_alignTop="@id/cardPin"
+                    android:layout_alignLeft="@id/cvvLabel"
+                    android:layout_alignStart="@id/cvvLabel"
+                    android:textSize="18sp"
+                    android:inputType="numberPassword"
+                    android:focusable="false"
+                    android:background="@null"
+                    android:text="1242"
+                    />
+
+            <View
+                android:id="@+id/btnHide"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignTop="@id/cvvLabel"
+                    android:background="@drawable/ic_show"
+                    />
 
             <TextView
                     android:id="@+id/bankAccountView"
@@ -45,11 +115,11 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="52dp"
+                    android:layout_marginTop="82dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
             <TextView
                     android:id="@+id/expirationDateView"
@@ -59,7 +129,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:layout_margin="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
         </RelativeLayout>
 
