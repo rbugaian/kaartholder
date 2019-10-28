@@ -1,29 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/cardListHolder"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardListHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <FrameLayout
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCardList"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:layout_gravity="end|bottom"
-                android:id="@+id/addCardButton"
-                android:layout_margin="10dp"/>
+                app:collapsedTitleTextAppearance="@style/AppBarCollapsed"
+                app:contentScrim="@color/colorAccent"
+                app:expandedTitleMarginStart="8dp"
+                app:expandedTitleTextAppearance="@style/AppBarExpanded"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-    </FrameLayout>
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp" />
 
-</RelativeLayout>
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    app:layout_collapseMode="pin"
+                    app:title="Cardholder"
+                    app:titleTextColor="@android:color/white" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCardList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addCardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="@color/grey"
+            app:srcCompat="@drawable/ic_add_24px" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
