@@ -126,7 +126,7 @@
                         android:id="@+id/cardNumberView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:digits="0123456789"
+                        android:digits="0123456789 "
                         android:maxLength="19"
                         android:textSize="18sp" />
 
