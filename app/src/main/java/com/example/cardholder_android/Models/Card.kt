@@ -2,6 +2,7 @@ package com.example.cardholder_android.Models
 
 class Card {
 
+    var isHidden: Boolean = true
     var id: Int = 0
     var cardName: String? = null
     var cardNumber: String? = null

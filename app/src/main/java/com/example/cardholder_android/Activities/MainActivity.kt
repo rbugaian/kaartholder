@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderCards() {
         val cardList = dbHelper.allCards
-        val adapter = CardListAdapter(cardList, {card: Card -> cardItemClicked(card)})
+        val adapter = CardListAdapter(cardList) { card: Card -> cardItemClicked(card)}
 
         rvCardList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvCardList.adapter = adapter
@@ -53,10 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun cardItemClicked(cardItem : Card) {
-        Toast.makeText(this, "Clicked: ${cardItem.cardName}", Toast.LENGTH_LONG).show()
-
-        val intent = Intent(this, CardInfoActivity::class.java)
-        intent.putExtra("card_id", cardItem.id)
-        startActivity(intent)
+        cardItem.isHidden = !cardItem.isHidden
+        rvCardList.adapter?.notifyDataSetChanged()
     }
 }
