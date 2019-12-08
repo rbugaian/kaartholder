@@ -7,4 +7,20 @@
     <string name="card_number_hint">Card Number</string>
     <string name="pin_hint">PIN</string>
     <string name="cvv_hint">CVV/CSC</string>
+
+    <string name="encrypt">Encrypt</string>
+    <string name="decrypt">Decrypt</string>
+    <string name="authenticate">Authenticate</string>
+    <string name="cancel">Cancel</string>
+    <string name="hint">Super secret input</string>
+    <string name="status">Status:\nType [%s]\nReason [%s]\nValue [%s]\nMessage [%s]</string>
+    <string name="fingerprint_not_available">Fingerprint is not available. Device must have Fingerprint sensor, enabled Lock screen and at least 1 enrolled Fingerprint.</string>
+    <string name="authenticate_user">Authenticate Fingerprint</string>
+    <string name="error">Error</string>
+    <string name="password">Password</string>
+    <string name="cardholder_auth_label">Cardholder</string>
+    <string name="try_with_biometric">Try with Fingerprint</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="ok">Dismiss</string>
 </resources>

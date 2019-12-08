@@ -1,4 +1,4 @@
-package com.example.cardholder_android.Models
+package com.example.cardholder_android.model
 
 class Card {
 

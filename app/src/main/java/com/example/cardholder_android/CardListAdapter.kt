@@ -3,22 +3,11 @@ package com.example.cardholder_android
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cardholder_android.Models.Card
-import kotlinx.android.synthetic.main.card_list_item.view.*
-import android.graphics.BlurMaskFilter
-import androidx.core.view.ViewCompat.setLayerType
+import com.example.cardholder_android.model.Card
 import android.os.Build
-import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.add_card_activity.view.*
-import kotlinx.android.synthetic.main.card_list_item.view.bankAccountView
-import kotlinx.android.synthetic.main.card_list_item.view.cardNameView
-import kotlinx.android.synthetic.main.card_list_item.view.cardNumberView
-import kotlinx.android.synthetic.main.card_list_item.view.expirationDateView
-import kotlinx.android.synthetic.main.card_list_item.view.btnHide
-import kotlinx.android.synthetic.main.card_list_item.view.cardPin
-import kotlinx.android.synthetic.main.card_list_item.view.cardCvv
+import kotlinx.android.synthetic.main.card_list_item.view.*
 
 class CardListAdapter(private val cards: ArrayList<Card>,
                       private val clickListener: (Card) -> Unit) : RecyclerView.Adapter<CardListHolder>() {

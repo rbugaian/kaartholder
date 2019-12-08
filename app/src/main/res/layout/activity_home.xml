@@ -9,40 +9,30 @@
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent">
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:collapsedTitleTextAppearance="@style/AppBarCollapsed"
-                app:contentScrim="@color/colorAccent"
-                app:expandedTitleMarginStart="8dp"
-                app:expandedTitleTextAppearance="@style/AppBarExpanded"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
-            <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp" />
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    app:layout_collapseMode="pin"
+                    android:background="@color/colorAccent"
                     app:title="Cardholder"
                     app:titleTextColor="@android:color/white" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCardList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="70dp"
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 

@@ -1,16 +1,13 @@
-package com.example.cardholder_android.Activities
+package com.example.cardholder_android.activity
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cardholder_android.CardDBHelper
 import com.example.cardholder_android.CardListAdapter
-import com.example.cardholder_android.Models.Card
+import com.example.cardholder_android.model.Card
 import com.example.cardholder_android.R
 import kotlinx.android.synthetic.main.activity_main.addCardButton
 import kotlinx.android.synthetic.main.activity_home.rvCardList
@@ -33,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             dbHelper = CardDBHelper(this)
 
             renderCards()
-            }
+        }
 
         addCardButton.setOnClickListener {
             val intent = Intent(this, AddCardActivity::class.java)
@@ -41,10 +38,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        rvCardList.adapter?.notifyDataSetChanged()
+    }
 
     private fun renderCards() {
         val cardList = dbHelper.allCards
-        val adapter = CardListAdapter(cardList) { card: Card -> cardItemClicked(card)}
+        val adapter = CardListAdapter(cardList) { card: Card -> cardItemClicked(card) }
 
         rvCardList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvCardList.adapter = adapter
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun cardItemClicked(cardItem : Card) {
+    private fun cardItemClicked(cardItem: Card) {
         cardItem.isHidden = !cardItem.isHidden
         rvCardList.adapter?.notifyDataSetChanged()
     }

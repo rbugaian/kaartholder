@@ -1,4 +1,4 @@
-package com.example.cardholder_android.Activities
+package com.example.cardholder_android.activity
 
 import android.content.Intent
 import android.os.Bundle
