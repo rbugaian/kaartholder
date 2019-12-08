@@ -15,11 +15,9 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                app:titleTextAppearance="@style/AppBarCollapsed"
-                app:layout_collapseMode="pin"
-                app:title="Cardholder"
+                android:background="@color/colorAccent"
+                app:titleTextAppearance="@style/ToolbarTextAppearance"
+                app:title="Add a Card"
                 app:titleTextColor="@android:color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -1,12 +1,15 @@
 package com.example.cardholder_android.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cardholder_android.CardDBHelper
 import com.example.cardholder_android.R
 import com.redmadrobot.inputmask.MaskedTextChangedListener
+import de.adorsys.android.securestoragelibrary.SecurePreferences
 import kotlinx.android.synthetic.main.card_info_activity.*
 
 class CardInfoActivity : AppCompatActivity() {
@@ -19,7 +22,18 @@ class CardInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.card_info_activity)
 
-        dbHelper = CardDBHelper(this)
+        val password = SecurePreferences.getStringValue(this,"authKey", null)
+        if (password == null) {
+            AlertDialog.Builder(this)
+                .setTitle("Oops")
+                .setMessage("Authentication error.")
+                .setPositiveButton(R.string.ok) { dialogInterface: DialogInterface, _: Int ->
+                    dialogInterface.dismiss()
+                    this@CardInfoActivity.finish()
+                }.show()
+        }
+
+        dbHelper = CardDBHelper(this, password!!)
 
         //Getting card object from DB
         val cardId = intent.getIntExtra("card_id", 0)

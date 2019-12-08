@@ -33,4 +33,8 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">#fff</item>
     </style>
+
+    <style name="ToolbarTextAppearance" parent="@android:style/TextAppearance.Medium">
+        <item name="android:fontFamily">@font/roboto_mono_bold</item>
+    </style>
 </resources>

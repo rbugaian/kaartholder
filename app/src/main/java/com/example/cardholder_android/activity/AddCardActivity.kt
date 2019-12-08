@@ -1,15 +1,18 @@
 package com.example.cardholder_android.activity
 
+import android.content.DialogInterface
 import android.content.res.AssetManager
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.InputType
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cardholder_android.CardDBHelper
 import com.example.cardholder_android.R
 import com.example.cardholder_android.model.Card
 import com.example.cardholder_android.util.FontLoader
 import com.redmadrobot.inputmask.MaskedTextChangedListener
+import de.adorsys.android.securestoragelibrary.SecurePreferences
 import kotlinx.android.synthetic.main.add_card_activity.*
 import java.util.*
 
@@ -42,8 +45,19 @@ class AddCardActivity() : AppCompatActivity() {
         expirationDateView.addTextChangedListener(expDateViewListener)
         expirationDateView.onFocusChangeListener = expDateViewListener
 
+        val password = SecurePreferences.getStringValue(this,"authKey", null)
+        if (password == null) {
+            AlertDialog.Builder(this)
+                .setTitle("Oops")
+                .setMessage("Authentication error.")
+                .setPositiveButton(R.string.ok) { dialogInterface: DialogInterface, _: Int ->
+                    dialogInterface.dismiss()
+                    this@AddCardActivity.finish()
+                }.show()
+        }
+
         //Adding card button
-        dbHelper = CardDBHelper(this)
+        dbHelper = CardDBHelper(this, password!!)
 
         btnAddCard.setOnClickListener {
             val card = Card()
@@ -55,8 +69,6 @@ class AddCardActivity() : AppCompatActivity() {
             dbHelper.addCard(card)
 
             this.finish()
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
         }
     }
 }

@@ -1,18 +1,25 @@
 package com.example.cardholder_android.activity
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cardholder_android.CardDBHelper
 import com.example.cardholder_android.CardListAdapter
 import com.example.cardholder_android.model.Card
 import com.example.cardholder_android.R
+import com.example.cardholder_android.util.FontLoader
+import de.adorsys.android.securestoragelibrary.SecurePreferences
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_main.addCardButton
-import kotlinx.android.synthetic.main.activity_home.rvCardList
 
 class MainActivity : AppCompatActivity() {
+
+    private var regularTypeface: Typeface? = null
 
     companion object {
         lateinit var dbHelper: CardDBHelper
@@ -22,12 +29,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        dbHelper = CardDBHelper(this)
+        val password = SecurePreferences.getStringValue(this,"authKey", null)
+        if (password == null) {
+            AlertDialog.Builder(this)
+                .setTitle("Oops")
+                .setMessage("Authentication error.")
+                .setPositiveButton(R.string.ok) { dialogInterface: DialogInterface, _: Int ->
+                    dialogInterface.dismiss()
+                    this@MainActivity.finish()
+                }.show()
+        }
+
+        dbHelper = CardDBHelper(this, password!!)
+        renderCustomFont()
 
         if (!dbHelper.isEmpty()) {
             setContentView(R.layout.activity_home)
-
-            dbHelper = CardDBHelper(this)
 
             renderCards()
         }
@@ -38,9 +55,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun renderCustomFont() {
+        this.regularTypeface = FontLoader.regular(this)
+    }
+
+
     override fun onResume() {
         super.onResume()
-        rvCardList.adapter?.notifyDataSetChanged()
+        if (rvCardList != null) {
+            rvCardList.adapter?.notifyDataSetChanged()
+        }
     }
 
     private fun renderCards() {

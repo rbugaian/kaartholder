@@ -1,5 +1,6 @@
 package com.example.cardholder_android.activity
 
+import android.content.ComponentCallbacks2
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
@@ -23,9 +24,6 @@ class AuthenticationActivity : AppCompatActivity() {
     private var lightTypeface: Typeface? = null
     private var regularTypeface: Typeface? = null
     private val KEY_NAME = "key"
-
-    private var cancelButton: View? = null
-
     private var encryptedValue: String? = null
     private var goldfinger: Goldfinger? = null
     private var statusView: TextView? = null
@@ -65,7 +63,7 @@ class AuthenticationActivity : AppCompatActivity() {
                     encryptedValue,
                     object : Goldfinger.Callback {
                         override fun onError(e: Exception) {
-                            onGoldfingerError()
+                            Toast.makeText(this@AuthenticationActivity, "Fingerprint authentication error.", Toast.LENGTH_SHORT).show()
                         }
 
                         override fun onResult(result: Goldfinger.Result) {
@@ -130,7 +128,7 @@ class AuthenticationActivity : AppCompatActivity() {
                 password.toString(),
                 object : Goldfinger.Callback {
                     override fun onError(e: Exception) {
-                        onGoldfingerError()
+                        Toast.makeText(this@AuthenticationActivity, "Fingerprint authentication error.", Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onResult(result: Goldfinger.Result) {
@@ -164,12 +162,6 @@ class AuthenticationActivity : AppCompatActivity() {
             .title("Authenticate")
             .negativeButtonText("Cancel")
             .build()
-    }
-
-    private fun onGoldfingerError() {
-        cancelButton!!.setEnabled(false)
-        statusView!!.setTextColor(ContextCompat.getColor(this, R.color.error))
-        statusView!!.text = getString(R.string.error)
     }
 
     private fun onGoldfingerResult(result: Goldfinger.Result) {

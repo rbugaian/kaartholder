@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">cardholder-android</string>
+    <string name="app_name">Kaartholder</string>
     <string name="hit_plus">Hit + to add a card</string>
     <string name="card_name_hint">Card Name</string>
     <string name="bank_account_hint">Bank Account</string>

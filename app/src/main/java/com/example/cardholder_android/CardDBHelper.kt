@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.cardholder_android.model.Card
 
-class CardDBHelper(context: Context) :
+class CardDBHelper(context: Context, userPassword: String) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VER) {
 
     companion object {
