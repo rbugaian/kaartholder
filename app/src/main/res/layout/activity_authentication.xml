@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.AuthenticationActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordViewLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="40dp"
+            android:hint="@string/password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textSize="18sp"
+                />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordConfirmViewLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="40dp"
+            android:hint="@string/confirm_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordViewLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordConfirmView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textSize="18sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="@string/cardholder_auth_label"
+            android:textColor="@color/colorAccent"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/auth_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/authenticate"
+            app:layout_constraintEnd_toEndOf="@+id/passwordConfirmViewLayout"
+            app:layout_constraintStart_toStartOf="@+id/passwordConfirmViewLayout"
+            app:layout_constraintTop_toBottomOf="@+id/passwordConfirmViewLayout" />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/try_fingerprint_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/try_with_biometric"
+            app:layout_constraintEnd_toEndOf="@+id/auth_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/auth_button"
+            app:layout_constraintTop_toBottomOf="@+id/auth_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--<LinearLayout-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical">-->
+
+<!--&lt;!&ndash;    <EditText&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/secretInputView"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_margin="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:hint="@string/hint"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textColor="#333333"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textSize="16sp"&ndash;&gt;-->
+<!--&lt;!&ndash;            />&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/encryptButton"&ndash;&gt;-->
+<!--&lt;!&ndash;            style="@style/Button"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_margin="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:enabled="false"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="@string/encrypt"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/decryptButton"&ndash;&gt;-->
+<!--&lt;!&ndash;            style="@style/Button"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_margin="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:enabled="false"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="@string/decrypt"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/authenticateButton"&ndash;&gt;-->
+<!--&lt;!&ndash;            style="@style/Button"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_margin="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:enabled="false"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="@string/authenticate"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/cancelButton"&ndash;&gt;-->
+<!--&lt;!&ndash;            style="@style/Button"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_margin="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:enabled="false"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="@string/cancel"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/statusView"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:padding="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textColor="@color/textRegular"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textSize="16sp"/>&ndash;&gt;-->
+<!--</LinearLayout>-->

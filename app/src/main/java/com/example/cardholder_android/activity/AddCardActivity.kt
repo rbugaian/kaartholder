@@ -23,7 +23,7 @@ class AddCardActivity : AppCompatActivity() {
 
         //Input types for editViews
         bankAccountView.setInputType(InputType.TYPE_CLASS_NUMBER)
-        cardNameView.setInputType(InputType.TYPE_CLASS_TEXT)
+        passwordView.setInputType(InputType.TYPE_CLASS_TEXT)
 
         //Card Number text formatting
         val cardNumberViewListener = MaskedTextChangedListener("[0000] [0000] [0000] [0000]", cardNumberView)
@@ -40,15 +40,16 @@ class AddCardActivity : AppCompatActivity() {
 
         btnAddCard.setOnClickListener {
             val card = Card()
-            card.cardName = cardNameView.text.toString()
+            card.cardName = passwordView.text.toString()
             card.cardNumber = cardNumberView.text.toString()
             card.bankAccount = bankAccountView.text.toString()
             card.expDate = expirationDateView.text.toString()
 
             dbHelper.addCard(card)
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            this.finish()
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
         }
     }
 }
