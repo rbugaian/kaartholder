@@ -51,7 +51,15 @@ class MainActivity : AppCompatActivity() {
 
         addCardButton.setOnClickListener {
             val intent = Intent(this, AddCardActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 558)
+//            startActivity(intent)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 558) {
+            this.renderCards()
         }
     }
 
@@ -67,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderCards() {
+    fun renderCards() {
         val cardList = dbHelper.allCards
         val adapter = CardListAdapter(cardList) { card: Card -> cardItemClicked(card) }
 
