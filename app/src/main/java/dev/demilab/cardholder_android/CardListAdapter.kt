@@ -1,9 +1,9 @@
-package com.example.cardholder_android
+package dev.demilab.cardholder_android
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cardholder_android.model.Card
+import dev.demilab.cardholder_android.model.Card
 import android.os.Build
 import android.text.method.PasswordTransformationMethod
 import androidx.core.content.ContextCompat

@@ -1,4 +1,4 @@
-package com.example.cardholder_android.activity
+package dev.demilab.cardholder_android.activity
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.text.InputType
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cardholder_android.CardDBHelper
-import com.example.cardholder_android.R
+import dev.demilab.cardholder_android.CardDBHelper
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import de.adorsys.android.securestoragelibrary.SecurePreferences
+import dev.demilab.cardholder_android.R
 import kotlinx.android.synthetic.main.card_info_activity.*
 
 class CardInfoActivity : AppCompatActivity() {
@@ -33,7 +33,8 @@ class CardInfoActivity : AppCompatActivity() {
                 }.show()
         }
 
-        dbHelper = CardDBHelper(this, password!!)
+        dbHelper =
+            CardDBHelper(this, password!!)
 
         //Getting card object from DB
         val cardId = intent.getIntExtra("card_id", 0)

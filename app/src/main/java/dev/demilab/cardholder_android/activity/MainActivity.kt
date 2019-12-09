@@ -1,4 +1,4 @@
-package com.example.cardholder_android.activity
+package dev.demilab.cardholder_android.activity
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -8,12 +8,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cardholder_android.CardDBHelper
-import com.example.cardholder_android.CardListAdapter
-import com.example.cardholder_android.model.Card
-import com.example.cardholder_android.R
-import com.example.cardholder_android.util.FontLoader
+import dev.demilab.cardholder_android.CardDBHelper
+import dev.demilab.cardholder_android.CardListAdapter
+import dev.demilab.cardholder_android.model.Card
+import dev.demilab.cardholder_android.util.FontLoader
 import de.adorsys.android.securestoragelibrary.SecurePreferences
+import dev.demilab.cardholder_android.R
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_main.addCardButton
 
@@ -40,9 +40,10 @@ class MainActivity : AppCompatActivity() {
                 }.show()
         }
 
-        dbHelper = CardDBHelper(this, password!!)
-        renderCustomFont()
 
+        renderCustomFont()
+        dbHelper =
+            CardDBHelper(this, password!!)
         if (!dbHelper.isEmpty()) {
             setContentView(R.layout.activity_home)
 
@@ -52,14 +53,15 @@ class MainActivity : AppCompatActivity() {
         addCardButton.setOnClickListener {
             val intent = Intent(this, AddCardActivity::class.java)
             startActivityForResult(intent, 558)
-//            startActivity(intent)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 558) {
-            this.renderCards()
+            if (rvCardList != null) {
+                this.renderCards()
+            }
         }
     }
 
@@ -71,13 +73,16 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (rvCardList != null) {
-            rvCardList.adapter?.notifyDataSetChanged()
+            this.renderCards()
         }
     }
 
-    fun renderCards() {
+    private fun renderCards() {
         val cardList = dbHelper.allCards
-        val adapter = CardListAdapter(cardList) { card: Card -> cardItemClicked(card) }
+        val adapter =
+            CardListAdapter(cardList) { card: Card ->
+                cardItemClicked(card)
+            }
 
         rvCardList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvCardList.adapter = adapter

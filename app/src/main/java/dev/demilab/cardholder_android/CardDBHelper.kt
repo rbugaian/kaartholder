@@ -1,14 +1,17 @@
-package com.example.cardholder_android
+package dev.demilab.cardholder_android
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.cardholder_android.model.Card
+import dev.demilab.cardholder_android.model.Card
 
 class CardDBHelper(context: Context, userPassword: String) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VER) {
+    SQLiteOpenHelper(context,
+        DATABASE_NAME, null,
+        DATABASE_VER
+    ) {
 
     companion object {
         private val DATABASE_VER = 1
@@ -62,7 +65,7 @@ class CardDBHelper(context: Context, userPassword: String) :
             return lstCard
         }
 
-    fun getCardById(cardId : Int):Card {
+    fun getCardById(cardId : Int): Card {
         val db: SQLiteDatabase = this.writableDatabase
         val cursor : Cursor = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COL_ID = " + cardId, null)
 

@@ -1,6 +1,5 @@
-package com.example.cardholder_android.activity
+package dev.demilab.cardholder_android.activity
 
-import android.content.ComponentCallbacks2
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
@@ -11,12 +10,11 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import co.infinum.goldfinger.Goldfinger
-import com.example.cardholder_android.BuildConfig
-import com.example.cardholder_android.R
-import com.example.cardholder_android.util.FontLoader
+import dev.demilab.cardholder_android.util.FontLoader
 import de.adorsys.android.securestoragelibrary.SecurePreferences
+import dev.demilab.cardholder_android.BuildConfig
+import dev.demilab.cardholder_android.R
 import kotlinx.android.synthetic.main.activity_authentication.*
 
 class AuthenticationActivity : AppCompatActivity() {

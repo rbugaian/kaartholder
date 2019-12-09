@@ -1,4 +1,4 @@
-package com.example.cardholder_android
+package dev.example.cardholder_android
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4

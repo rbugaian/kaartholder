@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.example.cardholder_android">
+        package="dev.demilab.cardholder_android">
 
     <application
             android:allowBackup="true"

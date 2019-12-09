@@ -1,4 +1,4 @@
-package com.example.cardholder_android
+package dev.demilab.cardholder_android
 
 import android.view.LayoutInflater
 import android.view.View

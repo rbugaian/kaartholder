@@ -1,4 +1,4 @@
-package com.example.cardholder_android
+package dev.example.cardholder_android
 
 import org.junit.Test
 

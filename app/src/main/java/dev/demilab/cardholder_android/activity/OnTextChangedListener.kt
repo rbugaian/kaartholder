@@ -1,4 +1,4 @@
-package com.example.cardholder_android.activity
+package dev.demilab.cardholder_android.activity
 
 import android.text.Editable
 import android.text.TextWatcher

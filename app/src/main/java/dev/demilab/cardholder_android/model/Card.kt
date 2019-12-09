@@ -1,4 +1,4 @@
-package com.example.cardholder_android.model
+package dev.demilab.cardholder_android.model
 
 class Card {
 

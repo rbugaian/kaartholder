@@ -1,4 +1,4 @@
-package com.example.cardholder_android.activity
+package dev.demilab.cardholder_android.activity
 
 import android.content.DialogInterface
 import android.content.res.AssetManager
@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.text.InputType
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cardholder_android.CardDBHelper
-import com.example.cardholder_android.R
-import com.example.cardholder_android.model.Card
-import com.example.cardholder_android.util.FontLoader
+import dev.demilab.cardholder_android.CardDBHelper
+import dev.demilab.cardholder_android.model.Card
+import dev.demilab.cardholder_android.util.FontLoader
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import de.adorsys.android.securestoragelibrary.SecurePreferences
+import dev.demilab.cardholder_android.R
 import kotlinx.android.synthetic.main.add_card_activity.*
 import java.util.*
 
@@ -57,7 +57,8 @@ class AddCardActivity() : AppCompatActivity() {
         }
 
         //Adding card button
-        dbHelper = CardDBHelper(this, password!!)
+        dbHelper =
+            CardDBHelper(this, password!!)
 
         btnAddCard.setOnClickListener {
             val card = Card()
