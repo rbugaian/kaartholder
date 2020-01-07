@@ -24,6 +24,8 @@ class CardDBHelper(context: Context, userPassword: String) :
         private val COL_CARD_NUMBER = "Card_Number"
         private val COL_BANK_ACCOUNT = "Bank_account"
         private val COL_EXP_DATE = "Expiration_date"
+        private val COL_PIN_CODE = "Pin_Code"
+        private val COL_CVV_CODE = "CVV_Code"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -32,7 +34,9 @@ class CardDBHelper(context: Context, userPassword: String) :
                 "$COL_CARD_NAME TEXT, " +
                 "$COL_CARD_NUMBER TEXT, " +
                 "$COL_BANK_ACCOUNT TEXT, " +
-                "$COL_EXP_DATE TEXT)")
+                "$COL_EXP_DATE TEXT," +
+                "$COL_PIN_CODE TEXT," +
+                "$COL_CVV_CODE TEXT)")
 
         db!!.execSQL(CREATE_TABLE_QUERY)
     }
@@ -57,6 +61,8 @@ class CardDBHelper(context: Context, userPassword: String) :
                     card.cardNumber = cursor.getString(cursor.getColumnIndex(COL_CARD_NUMBER))
                     card.bankAccount = cursor.getString(cursor.getColumnIndex(COL_BANK_ACCOUNT))
                     card.expDate = cursor.getString(cursor.getColumnIndex(COL_EXP_DATE))
+                    card.pinCode = cursor.getString(cursor.getColumnIndex(COL_PIN_CODE))
+                    card.cvvCode = cursor.getString(cursor.getColumnIndex(COL_CVV_CODE))
 
                     lstCard.add(card)
                 } while (cursor.moveToNext())
@@ -76,6 +82,8 @@ class CardDBHelper(context: Context, userPassword: String) :
             card.cardNumber = cursor.getString(cursor.getColumnIndex(COL_CARD_NUMBER))
             card.bankAccount = cursor.getString(cursor.getColumnIndex(COL_BANK_ACCOUNT))
             card.expDate = cursor.getString(cursor.getColumnIndex(COL_EXP_DATE))
+            card.pinCode = cursor.getString(cursor.getColumnIndex(COL_PIN_CODE))
+            card.cvvCode = cursor.getString(cursor.getColumnIndex(COL_CVV_CODE))
 
             cursor.close()
             return card
@@ -91,6 +99,8 @@ class CardDBHelper(context: Context, userPassword: String) :
         values.put(COL_CARD_NUMBER, card.cardNumber)
         values.put(COL_BANK_ACCOUNT, card.bankAccount)
         values.put(COL_EXP_DATE, card.expDate)
+        values.put(COL_PIN_CODE, card.pinCode)
+        values.put(COL_CVV_CODE, card.cvvCode)
 
         db.insert(TABLE_NAME, null, values)
         db.close()
@@ -119,6 +129,8 @@ class CardDBHelper(context: Context, userPassword: String) :
         val db: SQLiteDatabase = this.writableDatabase
         val selectQuery = "SELECT * FROM $TABLE_NAME"
         val cursor: Cursor = db.rawQuery(selectQuery, null)
-        return (cursor.count == 0)
+        val count = cursor.count
+        cursor.close()
+        return (count == 0)
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
 
         this.currentApp = this.application as KaartholderApplication;
         this.currentApp?.setCurrentActivity(this)
@@ -50,8 +51,8 @@ class MainActivity : AppCompatActivity() {
         dbHelper =
             CardDBHelper(this, password!!)
         if (!dbHelper.isEmpty()) {
-            setContentView(R.layout.activity_home)
-
+//            setContentView(R.layout.activity_home)
+            this.addCardHint.visibility = View.GONE
             renderCards()
         }
 
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 558 && rvCardList != null) {
+        if (requestCode == 558) {
             this.renderCards()
         }
     }
@@ -81,6 +82,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderCards() {
         val cardList = dbHelper.allCards
+        if (cardList.count() > 0) {
+            this.addCardHint.visibility = View.GONE
+        }
+
         val adapter =
             CardListAdapter(cardList) { card: Card ->
                 cardItemClicked(card)

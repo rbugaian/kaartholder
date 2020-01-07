@@ -36,7 +36,8 @@ class AddCardActivity() : AppCompatActivity() {
         passwordView.setInputType(InputType.TYPE_CLASS_TEXT)
 
         //Card Number text formatting
-        val cardNumberViewListener = MaskedTextChangedListener("[0000] [0000] [0000] [0000]", cardNumberView)
+        val cardNumberViewListener =
+            MaskedTextChangedListener("[0000] [0000] [0000] [0000]", cardNumberView)
         cardNumberView.addTextChangedListener(cardNumberViewListener)
         cardNumberView.onFocusChangeListener = cardNumberViewListener
 
@@ -45,7 +46,7 @@ class AddCardActivity() : AppCompatActivity() {
         expirationDateView.addTextChangedListener(expDateViewListener)
         expirationDateView.onFocusChangeListener = expDateViewListener
 
-        val password = SecurePreferences.getStringValue(this,"authKey", null)
+        val password = SecurePreferences.getStringValue(this, "authKey", null)
         if (password == null) {
             AlertDialog.Builder(this)
                 .setTitle("Oops")
@@ -66,6 +67,8 @@ class AddCardActivity() : AppCompatActivity() {
             card.cardNumber = cardNumberView.text.toString()
             card.bankAccount = bankAccountView.text.toString()
             card.expDate = expirationDateView.text.toString()
+            card.pinCode = pinCodeView.text.toString()
+            card.cvvCode = cvvCodeView.text.toString()
 
             dbHelper.addCard(card)
 

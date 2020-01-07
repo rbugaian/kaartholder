@@ -8,20 +8,7 @@ class Card {
     var cardNumber: String? = null
     var bankAccount: String? = null
     var expDate: String? = null
+    var pinCode: String? = null
+    var cvvCode: String? = null
 
-    constructor() {}
-
-    constructor(
-        id: Int,
-        cardName: String,
-        bankAccount: String,
-        cardNumber: String,
-        expDate: String
-    ) {
-        this.id = id
-        this.cardName = cardName
-        this.cardNumber = cardNumber
-        this.bankAccount = bankAccount
-        this.expDate = expDate
-    }
 }

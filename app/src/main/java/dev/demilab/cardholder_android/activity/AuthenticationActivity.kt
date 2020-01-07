@@ -5,16 +5,14 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import co.infinum.goldfinger.Goldfinger
-import dev.demilab.cardholder_android.util.FontLoader
 import de.adorsys.android.securestoragelibrary.SecurePreferences
-import dev.demilab.cardholder_android.BuildConfig
 import dev.demilab.cardholder_android.R
+import dev.demilab.cardholder_android.util.FontLoader
 import kotlinx.android.synthetic.main.activity_authentication.*
 
 class AuthenticationActivity : AppCompatActivity() {
@@ -24,7 +22,6 @@ class AuthenticationActivity : AppCompatActivity() {
     private val KEY_NAME = "key"
     private var encryptedValue: String? = null
     private var goldfinger: Goldfinger? = null
-    private var statusView: TextView? = null
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +58,11 @@ class AuthenticationActivity : AppCompatActivity() {
                     encryptedValue,
                     object : Goldfinger.Callback {
                         override fun onError(e: Exception) {
-                            Toast.makeText(this@AuthenticationActivity, "Fingerprint authentication error.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@AuthenticationActivity,
+                                "Fingerprint authentication error.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
                         override fun onResult(result: Goldfinger.Result) {
@@ -69,6 +70,42 @@ class AuthenticationActivity : AppCompatActivity() {
                         }
                     })
             }
+        } else {
+            try_fingerprint_button.setOnClickListener {
+                if(passwordView.text.toString() == storedKey) {
+                    goldfinger!!.encrypt(
+                        buildPromptParams(),
+                        KEY_NAME,
+                        storedKey,
+                        object : Goldfinger.Callback {
+                            override fun onError(e: Exception) {
+                                Toast.makeText(
+                                    this@AuthenticationActivity,
+                                    "Fingerprint authentication error.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                e.printStackTrace();
+                            }
+
+                            override fun onResult(result: Goldfinger.Result) {
+                                onGoldfingerResult(result)
+                                val resultValue = result.value()
+                                SecurePreferences.setValue(
+                                    this@AuthenticationActivity, "encryptedValue",
+                                    resultValue.toString()
+                                )
+                            }
+                        })
+                } else {
+                    AlertDialog.Builder(this@AuthenticationActivity)
+                        .setTitle("Oops")
+                        .setMessage("Authentication failed.")
+                        .setPositiveButton(R.string.ok) { dialogInterface: DialogInterface, _: Int ->
+                            dialogInterface.dismiss()
+                        }.show()
+                }
+            }
+
         }
 
         auth_button.setOnClickListener {
@@ -120,25 +157,32 @@ class AuthenticationActivity : AppCompatActivity() {
                 storedKey1.toString()
             )
 
-            goldfinger!!.encrypt(
-                buildPromptParams(),
-                KEY_NAME,
-                password.toString(),
-                object : Goldfinger.Callback {
-                    override fun onError(e: Exception) {
-                        Toast.makeText(this@AuthenticationActivity, "Fingerprint authentication error.", Toast.LENGTH_SHORT).show()
-                        e.printStackTrace();
-                    }
+            startMainActivity()
 
-                    override fun onResult(result: Goldfinger.Result) {
-                        onGoldfingerResult(result)
-                        encryptedValue = result.value()
-                        SecurePreferences.setValue(
-                            this@AuthenticationActivity, "encryptedValue",
-                            encryptedValue.toString()
-                        )
-                    }
-                })
+
+//            goldfinger!!.encrypt(
+//                buildPromptParams(),
+//                KEY_NAME,
+//                password.toString(),
+//                object : Goldfinger.Callback {
+//                    override fun onError(e: Exception) {
+//                        Toast.makeText(
+//                            this@AuthenticationActivity,
+//                            "Fingerprint authentication error.",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        e.printStackTrace();
+//                    }
+//
+//                    override fun onResult(result: Goldfinger.Result) {
+//                        onGoldfingerResult(result)
+//                        encryptedValue = result.value()
+//                        SecurePreferences.setValue(
+//                            this@AuthenticationActivity, "encryptedValue",
+//                            encryptedValue.toString()
+//                        )
+//                    }
+//                })
         }
     }
 
