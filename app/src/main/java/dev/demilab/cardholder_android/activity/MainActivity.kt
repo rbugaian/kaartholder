@@ -13,11 +13,14 @@ import dev.demilab.cardholder_android.CardListAdapter
 import dev.demilab.cardholder_android.model.Card
 import dev.demilab.cardholder_android.util.FontLoader
 import de.adorsys.android.securestoragelibrary.SecurePreferences
+import dev.demilab.cardholder_android.KaartholderApplication
 import dev.demilab.cardholder_android.R
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_main.addCardButton
 
 class MainActivity : AppCompatActivity() {
+
+    private var currentApp: KaartholderApplication? = null
 
     private var regularTypeface: Typeface? = null
 
@@ -29,7 +32,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val password = SecurePreferences.getStringValue(this,"authKey", null)
+        this.currentApp = this.application as KaartholderApplication;
+        this.currentApp?.setCurrentActivity(this)
+
+        val password = SecurePreferences.getStringValue(this, "authKey", null)
         if (password == null) {
             AlertDialog.Builder(this)
                 .setTitle("Oops")
@@ -39,7 +45,6 @@ class MainActivity : AppCompatActivity() {
                     this@MainActivity.finish()
                 }.show()
         }
-
 
         renderCustomFont()
         dbHelper =
@@ -58,17 +63,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 558) {
-            if (rvCardList != null) {
-                this.renderCards()
-            }
+        if (requestCode == 558 && rvCardList != null) {
+            this.renderCards()
         }
     }
 
     fun renderCustomFont() {
         this.regularTypeface = FontLoader.regular(this)
     }
-
 
     override fun onResume() {
         super.onResume()

@@ -32,7 +32,7 @@ class AuthenticationActivity : AppCompatActivity() {
 
         renderCustomFont()
 
-        goldfinger = Goldfinger.Builder(this).logEnabled(BuildConfig.DEBUG).build()
+        goldfinger = Goldfinger.Builder(this).logEnabled(true).build()
 
         val storedKey = SecurePreferences.getStringValue(this, "authKey", null)
         if (storedKey == null) {
@@ -82,7 +82,7 @@ class AuthenticationActivity : AppCompatActivity() {
     }
 
     private fun handleNonExistingKey(storedKey: String?) {
-        var storedKey1 = storedKey
+        var storedKey1: String?
         auth_button.setText(R.string.register)
         try_fingerprint_button.visibility = View.GONE
 
@@ -127,6 +127,7 @@ class AuthenticationActivity : AppCompatActivity() {
                 object : Goldfinger.Callback {
                     override fun onError(e: Exception) {
                         Toast.makeText(this@AuthenticationActivity, "Fingerprint authentication error.", Toast.LENGTH_SHORT).show()
+                        e.printStackTrace();
                     }
 
                     override fun onResult(result: Goldfinger.Result) {
@@ -166,8 +167,6 @@ class AuthenticationActivity : AppCompatActivity() {
         if (result.type() == Goldfinger.Type.SUCCESS) {
             Toast.makeText(this, "Authentication: Success!", Toast.LENGTH_SHORT).show()
             startMainActivity()
-        } else {
-            Toast.makeText(this, "Authentication: Failure.", Toast.LENGTH_SHORT).show()
         }
     }
 
