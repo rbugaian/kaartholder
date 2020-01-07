@@ -67,3 +67,5 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 .idea
+app/src/.DS_Store
+.DS_Store
