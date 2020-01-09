@@ -1,4 +1,4 @@
-package dev.demilab.cardholder_android.activity
+package dev.demilab.kaartholder.activity
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -9,13 +9,13 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import dev.demilab.cardholder_android.CardDBHelper
-import dev.demilab.cardholder_android.CardListAdapter
-import dev.demilab.cardholder_android.model.Card
-import dev.demilab.cardholder_android.util.FontLoader
+import dev.demilab.kaartholder.CardDBHelper
+import dev.demilab.kaartholder.CardListAdapter
+import dev.demilab.kaartholder.model.Card
+import dev.demilab.kaartholder.util.FontLoader
 import de.adorsys.android.securestoragelibrary.SecurePreferences
-import dev.demilab.cardholder_android.KaartholderApplication
-import dev.demilab.cardholder_android.R
+import dev.demilab.kaartholder.KaartholderApplication
+import dev.demilab.kaartholder.R
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_main.addCardButton
 

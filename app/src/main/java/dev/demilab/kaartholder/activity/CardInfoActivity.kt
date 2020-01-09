@@ -1,4 +1,4 @@
-package dev.demilab.cardholder_android.activity
+package dev.demilab.kaartholder.activity
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.text.InputType
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import dev.demilab.cardholder_android.CardDBHelper
+import dev.demilab.kaartholder.CardDBHelper
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import de.adorsys.android.securestoragelibrary.SecurePreferences
-import dev.demilab.cardholder_android.R
+import dev.demilab.kaartholder.R
 import kotlinx.android.synthetic.main.card_info_activity.*
 
 class CardInfoActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package dev.demilab.cardholder_android.activity
+package dev.demilab.kaartholder.activity
 
 import android.text.Editable
 import android.text.TextWatcher

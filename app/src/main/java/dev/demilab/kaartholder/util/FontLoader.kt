@@ -1,4 +1,4 @@
-package dev.demilab.cardholder_android.util
+package dev.demilab.kaartholder.util
 
 import android.content.Context
 import android.content.res.AssetManager

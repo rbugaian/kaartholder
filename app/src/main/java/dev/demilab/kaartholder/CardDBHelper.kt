@@ -1,11 +1,11 @@
-package dev.demilab.cardholder_android
+package dev.demilab.kaartholder
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import dev.demilab.cardholder_android.model.Card
+import dev.demilab.kaartholder.model.Card
 
 class CardDBHelper(context: Context, userPassword: String) :
     SQLiteOpenHelper(context,

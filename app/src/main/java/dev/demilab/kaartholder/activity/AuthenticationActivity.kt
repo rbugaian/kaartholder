@@ -1,4 +1,4 @@
-package dev.demilab.cardholder_android.activity
+package dev.demilab.kaartholder.activity
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -11,8 +11,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import co.infinum.goldfinger.Goldfinger
 import de.adorsys.android.securestoragelibrary.SecurePreferences
-import dev.demilab.cardholder_android.R
-import dev.demilab.cardholder_android.util.FontLoader
+import dev.demilab.kaartholder.R
+import dev.demilab.kaartholder.util.FontLoader
 import kotlinx.android.synthetic.main.activity_authentication.*
 
 class AuthenticationActivity : AppCompatActivity() {
