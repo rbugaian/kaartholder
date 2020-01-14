@@ -124,6 +124,14 @@
                     android:layout_margin="10dp"
                     android:textSize="16sp" />
 
+            <View
+                    android:id="@+id/deleteCardButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="7dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/ic_cancel_black_24dp" />
+
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>

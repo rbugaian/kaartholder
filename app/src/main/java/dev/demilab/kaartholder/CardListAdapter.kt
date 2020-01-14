@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import de.adorsys.android.securestoragelibrary.SecurePreferences
 import dev.demilab.kaartholder.util.Encryption
 import dev.demilab.kaartholder.util.FontLoader
+import kotlinx.android.synthetic.main.card_info_activity.view.*
 import kotlinx.android.synthetic.main.card_list_item.view.*
 import kotlinx.android.synthetic.main.card_list_item.view.bankAccountView
 import kotlinx.android.synthetic.main.card_list_item.view.cardNumberView
@@ -20,7 +21,8 @@ import java.nio.charset.Charset
 
 class CardListAdapter(
     private val cards: ArrayList<Card>,
-    private val clickListener: (Card) -> Unit
+    private val clickListener: (Card) -> Unit,
+    private val deleteButtonClickListener: (Card) -> Unit
 ) : RecyclerView.Adapter<CardListHolder>() {
 
     private lateinit var encryption: Encryption
@@ -60,7 +62,7 @@ class CardListAdapter(
     override fun getItemCount() = cards.size
 
     override fun onBindViewHolder(holder: CardListHolder, position: Int) {
-        holder.bind(cards[position], clickListener)
+        holder.bind(cards[position], clickListener, deleteButtonClickListener)
     }
 }
 
@@ -78,7 +80,7 @@ class CardListHolder(
             Charset.defaultCharset())
     }
 
-    fun bind(card: Card, clickListener: (Card) -> Unit) {
+    fun bind(card: Card, clickListener: (Card) -> Unit, deleteButtonClickListener: (Card) -> Unit) {
         itemView.cardNameView.text = decryptField(card.cardName!!)
         itemView.cardNameView.typeface = regularTypeFace
 
@@ -107,5 +109,7 @@ class CardListHolder(
             itemView.cardPin.transformationMethod = null
             itemView.cardCvv.transformationMethod = null
         }
+
+        itemView.btnDeleteCard.setOnClickListener { deleteButtonClickListener(card) }
     }
 }

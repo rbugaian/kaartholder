@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -87,9 +88,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val adapter =
-            CardListAdapter(cardList) { card: Card ->
-                cardItemClicked(card)
-            }
+            CardListAdapter(cardList, {card: Card -> cardItemClicked(card)}, {card: Card -> deleteButtonClicked(card)})
 
         rvCardList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvCardList.adapter = adapter
@@ -100,5 +99,18 @@ class MainActivity : AppCompatActivity() {
     private fun cardItemClicked(cardItem: Card) {
         cardItem.isHidden = !cardItem.isHidden
         rvCardList.adapter?.notifyDataSetChanged()
+    }
+
+    private fun deleteButtonClicked(card: Card) {
+        val builder = android.app.AlertDialog.Builder(this@MainActivity)
+        builder.setTitle("Attention!")
+            .setMessage("Are you sure you want to delete this card?")
+            .setNegativeButton("CANCEL"){dialog, which ->
+                Log.d("LOG", "Canceled")
+            }
+            .setPositiveButton("YES"){dialog, which ->
+                dbHelper.deleteCard(card)
+                renderCards()
+            }
     }
 }
