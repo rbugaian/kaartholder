@@ -23,4 +23,5 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="register">Register</string>
     <string name="ok">Dismiss</string>
+    <string name="yes">Yes</string>
 </resources>

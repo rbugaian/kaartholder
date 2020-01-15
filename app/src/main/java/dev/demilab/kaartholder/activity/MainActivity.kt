@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun deleteButtonClicked(card: Card) {
         AlertDialog.Builder(this)
-            .setTitle("Attention!")
+            .setTitle("Warning!")
             .setMessage("Are you sure you want to delete this card?")
             .setNegativeButton("CANCEL"){dialog, which ->
                 Log.d("LOG", "Canceled")

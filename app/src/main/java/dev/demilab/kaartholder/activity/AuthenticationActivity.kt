@@ -1,7 +1,9 @@
 package dev.demilab.kaartholder.activity
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
@@ -48,7 +50,10 @@ class AuthenticationActivity : AppCompatActivity() {
             null
         )
 
-        if (!goldfinger!!.canAuthenticate() && encryptedValue == null) {
+        val prefs = getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val didDeclineBiometricAuth = prefs.getBoolean("did_decline_biometric", false)
+
+        if (!goldfinger!!.canAuthenticate() || encryptedValue == null) {
             try_fingerprint_button.visibility = View.GONE
         } else if (encryptedValue != null) {
             try_fingerprint_button.setOnClickListener {
@@ -70,52 +75,64 @@ class AuthenticationActivity : AppCompatActivity() {
                         }
                     })
             }
-        } else {
-            try_fingerprint_button.setOnClickListener {
-                if(passwordView.text.toString() == storedKey) {
-                    goldfinger!!.encrypt(
-                        buildPromptParams(),
-                        KEY_NAME,
-                        storedKey,
-                        object : Goldfinger.Callback {
-                            override fun onError(e: Exception) {
-                                Toast.makeText(
-                                    this@AuthenticationActivity,
-                                    "Fingerprint authentication error.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                e.printStackTrace();
-                            }
-
-                            override fun onResult(result: Goldfinger.Result) {
-                                onGoldfingerResult(result)
-                                val resultValue = result.value()
-                                SecurePreferences.setValue(
-                                    this@AuthenticationActivity, "encryptedValue",
-                                    resultValue.toString()
-                                )
-                            }
-                        })
-                } else {
-                    AlertDialog.Builder(this@AuthenticationActivity)
-                        .setTitle("Oops")
-                        .setMessage("Authentication failed.")
-                        .setPositiveButton(R.string.ok) { dialogInterface: DialogInterface, _: Int ->
-                            dialogInterface.dismiss()
-                        }.show()
-                }
-            }
-
         }
 
         auth_button.setOnClickListener {
             if (storedKey == passwordView.text.toString()) {
-                Toast.makeText(this, "Authentication: Success!", Toast.LENGTH_SHORT).show()
-                startMainActivity()
+                if (encryptedValue == null && !didDeclineBiometricAuth) {
+                    AlertDialog.Builder(this@AuthenticationActivity)
+                        .setTitle("Hey")
+                        .setMessage("Would you like to set up biometric authentication?")
+                        .setNegativeButton(R.string.cancel) { dialogInterface: DialogInterface, _: Int ->
+                            dialogInterface.dismiss()
+
+                            Toast.makeText(this, "Authentication: Success!", Toast.LENGTH_SHORT)
+                                .show()
+                            startMainActivity()
+
+                            prefs.edit().putBoolean("did_decline_biometric", true).apply();
+                        }
+                        .setPositiveButton(R.string.yes) { dialogInterface: DialogInterface, _: Int ->
+                            dialogInterface.dismiss()
+                            setUpBiometricAuthentication(storedKey)
+                        }.show()
+                } else {
+                    Toast.makeText(this, "Authentication: Success!", Toast.LENGTH_SHORT)
+                        .show()
+                    startMainActivity()
+                }
             } else {
                 Toast.makeText(this, "Authentication: Failure!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun setUpBiometricAuthentication(storedKey: String?) {
+//        try_fingerprint_button.setOnClickListener {
+        goldfinger!!.encrypt(
+            buildPromptParams(),
+            KEY_NAME,
+            storedKey!!,
+            object : Goldfinger.Callback {
+                override fun onError(e: Exception) {
+                    Toast.makeText(
+                        this@AuthenticationActivity,
+                        "Fingerprint authentication error.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    e.printStackTrace();
+                }
+
+                override fun onResult(result: Goldfinger.Result) {
+                    onGoldfingerResult(result)
+                    val resultValue = result.value()
+                    SecurePreferences.setValue(
+                        this@AuthenticationActivity, "encryptedValue",
+                        resultValue.toString()
+                    )
+                }
+            })
+//        }
     }
 
     private fun handleNonExistingKey(storedKey: String?) {
