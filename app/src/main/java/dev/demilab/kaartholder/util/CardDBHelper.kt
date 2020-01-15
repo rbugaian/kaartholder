@@ -1,4 +1,4 @@
-package dev.demilab.kaartholder
+package dev.demilab.kaartholder.util
 
 import android.content.ContentValues
 import android.content.Context

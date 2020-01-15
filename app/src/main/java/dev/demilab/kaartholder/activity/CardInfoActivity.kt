@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.text.InputType
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import dev.demilab.kaartholder.CardDBHelper
+import dev.demilab.kaartholder.util.CardDBHelper
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import de.adorsys.android.securestoragelibrary.SecurePreferences
 import dev.demilab.kaartholder.R

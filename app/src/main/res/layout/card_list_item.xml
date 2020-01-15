@@ -126,9 +126,10 @@
 
             <View
                     android:id="@+id/deleteCardButton"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_margin="7dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_alignParentEnd="true"
                     android:background="@drawable/ic_cancel_black_24dp" />
 

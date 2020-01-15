@@ -10,7 +10,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import dev.demilab.kaartholder.CardDBHelper
+import dev.demilab.kaartholder.util.CardDBHelper
 import dev.demilab.kaartholder.CardListAdapter
 import dev.demilab.kaartholder.model.Card
 import dev.demilab.kaartholder.util.FontLoader
