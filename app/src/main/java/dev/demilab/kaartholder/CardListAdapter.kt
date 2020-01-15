@@ -110,6 +110,6 @@ class CardListHolder(
             itemView.cardCvv.transformationMethod = null
         }
 
-        itemView.btnDeleteCard.setOnClickListener { deleteButtonClickListener(card) }
+        itemView.deleteCardButton.setOnClickListener { deleteButtonClickListener(card) }
     }
 }

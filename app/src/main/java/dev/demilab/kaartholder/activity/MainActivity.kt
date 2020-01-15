@@ -102,15 +102,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteButtonClicked(card: Card) {
-        val builder = android.app.AlertDialog.Builder(this@MainActivity)
-        builder.setTitle("Attention!")
+        AlertDialog.Builder(this)
+            .setTitle("Attention!")
             .setMessage("Are you sure you want to delete this card?")
             .setNegativeButton("CANCEL"){dialog, which ->
                 Log.d("LOG", "Canceled")
             }
             .setPositiveButton("YES"){dialog, which ->
                 dbHelper.deleteCard(card)
-                renderCards()
-            }
+                if(dbHelper.isEmpty()) {
+                    this.addCardHint.visibility = View.VISIBLE
+                    renderCards()
+                } else {
+                    renderCards()
+                }
+            }.show()
     }
 }
