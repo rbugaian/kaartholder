@@ -67,15 +67,13 @@ class AddCardActivity() : AppCompatActivity() {
         var salt = ByteArray(256)
         var iv = ByteArray(16)
 
-        if (SecurePreferences.contains(this, "salt") && SecurePreferences.contains(this, "iv")) {
-//            val saltSet = SecurePreferences.getStringSetValue(this, "salt", HashSet<String>());
-//            val stringSalt = saltSet.joinToString()
-//            salt = stringSalt.toByteArray()
-////            salt = SecurePreferences.getStringValue(this, "salt", null)!!.toByteArray(Charset.defaultCharset())
-//
-//            val ivSet = SecurePreferences.getStringSetValue(this, "iv", HashSet<String>())
-//            val stringIv = ivSet.joinToString()
-//            iv = stringIv.toByteArray()
+        val prefs = this.getSharedPreferences("crypto", Context.MODE_PRIVATE)
+        if (prefs.contains("salt") && prefs.contains("iv")) {
+            val stringSalt = prefs.getString("salt", null)
+            salt = Base64.decode(stringSalt, Base64.NO_WRAP)
+
+            val stringIv = prefs.getString("iv", null)
+            iv = Base64.decode(stringIv, Base64.NO_WRAP)
         } else {
             val random = SecureRandom()
             //Generating salt

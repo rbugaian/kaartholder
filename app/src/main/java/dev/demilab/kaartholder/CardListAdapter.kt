@@ -34,14 +34,6 @@ class CardListAdapter(
         val inflatedView = parent.inflate(R.layout.card_list_item, false)
         val regularTypeFace = FontLoader.regular(inflatedView.context)
 
-//        val saltSet = SecurePreferences.getStringSetValue(inflatedView.context, "salt", HashSet<String>());
-//        val stringSalt = saltSet.joinToString()
-//        salt = stringSalt.toByteArray()
-
-//        val ivSet = SecurePreferences.getStringSetValue(inflatedView.context, "iv", HashSet<String>())
-//        val stringIv = ivSet.joinToString()
-//        iv = stringIv.toByteArray()
-
         val prefs = inflatedView.context.getSharedPreferences("crypto", Context.MODE_PRIVATE)
         val stringSalt = prefs.getString("salt", null)
         val salt = Base64.decode(stringSalt, Base64.NO_WRAP)
@@ -49,10 +41,6 @@ class CardListAdapter(
         val stringIv = prefs.getString("iv", null)
         val iv = Base64.decode(stringIv, Base64.NO_WRAP)
 
-//        val salt =  prefs.getString("salt", null).toByteArray(Charset.defaultCharset())
-//        val iv =  prefs.getStringSet("iv", HashSet<String>()).joinToString().toByteArray(Charset.defaultCharset())
-//        salt = SecurePreferences.getStringValue(inflatedView.context, "salt", null)!!.toByteArray(Charset.defaultCharset())
-//        iv = SecurePreferences.getStringValue(inflatedView.context, "iv", null)!!.toByteArray(Charset.defaultCharset())
         password = SecurePreferences.getStringValue(inflatedView.context, "authKey", null);
         encryption = Encryption()
 
@@ -75,41 +63,48 @@ class CardListHolder(
     private val encryption: Encryption
 ) : RecyclerView.ViewHolder(v) {
 
-    fun decryptField(field: String):String {
-        return encryption.decrypt(encrypted = Base64.decode(field, Base64.NO_WRAP) , iv = iv, salt = salt, password = password!!.toCharArray())!!.toString(
-            Charset.defaultCharset())
+    fun decryptField(field: String):String? {
+        return encryption.decrypt(encrypted = Base64.decode(field, Base64.NO_WRAP) , iv = iv, salt = salt, password = password!!.toCharArray())
+            ?.toString(
+                Charset.defaultCharset())
     }
 
     fun bind(card: Card, clickListener: (Card) -> Unit, deleteButtonClickListener: (Card) -> Unit) {
-        itemView.cardNameView.text = decryptField(card.cardName!!)
-        itemView.cardNameView.typeface = regularTypeFace
-
-        itemView.cardNumberView?.text = decryptField(card.cardNumber!!)
-        itemView.cardNumberView?.typeface = regularTypeFace
-
-        itemView.bankAccountView?.text = decryptField(card.bankAccount!!)
-        itemView.bankAccountView?.typeface = regularTypeFace
-
-        itemView.expirationDateView?.text = decryptField(card.expDate!!)
-        itemView.expirationDateView?.typeface = regularTypeFace
-
-        itemView.cardPin?.setText(decryptField(card.pinCode!!))
-        itemView.cardCvv?.setText(decryptField(card.cvvCode!!))
-
-        itemView.btnHide.setOnClickListener { clickListener(card) }
-
-        if (card.isHidden) {
-            itemView.btnHide.background =
-                ContextCompat.getDrawable(itemView.context, R.drawable.ic_show)
-            itemView.cardPin.transformationMethod = PasswordTransformationMethod()
-            itemView.cardCvv.transformationMethod = PasswordTransformationMethod()
+        val cardNameDecrypted = decryptField(card.cardName!!)
+        if (cardNameDecrypted == null) {
+            //TODO Нужно убрать эту карточку если расшифровка неполучилась.
+            itemView.visibility = View.GONE
         } else {
-            itemView.btnHide.background =
-                ContextCompat.getDrawable(itemView.context, R.drawable.ic_hide)
-            itemView.cardPin.transformationMethod = null
-            itemView.cardCvv.transformationMethod = null
-        }
+            itemView.cardNameView.text = decryptField(card.cardName!!)
+            itemView.cardNameView.typeface = regularTypeFace
 
-        itemView.deleteCardButton.setOnClickListener { deleteButtonClickListener(card) }
+            itemView.cardNumberView?.text = decryptField(card.cardNumber!!)
+            itemView.cardNumberView?.typeface = regularTypeFace
+
+            itemView.bankAccountView?.text = decryptField(card.bankAccount!!)
+            itemView.bankAccountView?.typeface = regularTypeFace
+
+            itemView.expirationDateView?.text = decryptField(card.expDate!!)
+            itemView.expirationDateView?.typeface = regularTypeFace
+
+            itemView.cardPin?.setText(decryptField(card.pinCode!!))
+            itemView.cardCvv?.setText(decryptField(card.cvvCode!!))
+
+            itemView.btnHide.setOnClickListener { clickListener(card) }
+
+            if (card.isHidden) {
+                itemView.btnHide.background =
+                    ContextCompat.getDrawable(itemView.context, R.drawable.ic_show)
+                itemView.cardPin.transformationMethod = PasswordTransformationMethod()
+                itemView.cardCvv.transformationMethod = PasswordTransformationMethod()
+            } else {
+                itemView.btnHide.background =
+                    ContextCompat.getDrawable(itemView.context, R.drawable.ic_hide)
+                itemView.cardPin.transformationMethod = null
+                itemView.cardCvv.transformationMethod = null
+            }
+
+            itemView.deleteCardButton.setOnClickListener { deleteButtonClickListener(card) }
+        }
     }
 }
