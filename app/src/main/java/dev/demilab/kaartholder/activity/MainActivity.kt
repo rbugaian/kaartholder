@@ -1,10 +1,12 @@
 package dev.demilab.kaartholder.activity
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -17,14 +19,21 @@ import dev.demilab.kaartholder.util.FontLoader
 import de.adorsys.android.securestoragelibrary.SecurePreferences
 import dev.demilab.kaartholder.KaartholderApplication
 import dev.demilab.kaartholder.R
+import dev.demilab.kaartholder.util.Encryption
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_main.addCardButton
+import java.nio.charset.Charset
 
 class MainActivity : AppCompatActivity() {
 
     private var currentApp: KaartholderApplication? = null
 
     private var regularTypeface: Typeface? = null
+
+    private lateinit var encryption: Encryption
+    private var password: String? = null
+    private lateinit var iv: ByteArray
+    private lateinit var salt: ByteArray
 
     companion object {
         lateinit var dbHelper: CardDBHelper
@@ -83,8 +92,33 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderCards() {
         val cardList = dbHelper.allCards
+        //val decryptedCardList = ArrayList<Card>()
         if (cardList.count() > 0) {
             this.addCardHint.visibility = View.GONE
+
+            val prefs = this@MainActivity.getSharedPreferences("crypto", Context.MODE_PRIVATE)
+            val stringSalt = prefs.getString("salt", null)
+            salt = Base64.decode(stringSalt, Base64.NO_WRAP)
+
+            val stringIv = prefs.getString("iv", null)
+            iv = Base64.decode(stringIv, Base64.NO_WRAP)
+
+            password = SecurePreferences.getStringValue(this@MainActivity, "authKey", null)
+            encryption = Encryption()
+
+            cardList.forEach {
+                it.cardName = decryptField(it.cardName!!)
+                if (it.cardName == null) {
+                    dbHelper.deleteCard(it)
+                    cardList.remove(it)
+                } else {
+                    it.cardNumber = decryptField(it.cardNumber!!)
+                    it.bankAccount = decryptField(it.bankAccount!!)
+                    it.expDate = decryptField(it.expDate!!)
+                    it.cvvCode = decryptField(it.cvvCode!!)
+                    it.pinCode = decryptField(it.pinCode!!)
+                }
+            }
         }
 
         val adapter =
@@ -117,5 +151,11 @@ class MainActivity : AppCompatActivity() {
                     renderCards()
                 }
             }.show()
+    }
+
+    private fun decryptField(field: String):String? {
+        return encryption.decrypt(encrypted = Base64.decode(field, Base64.NO_WRAP) , iv = iv, salt = salt, password = password!!.toCharArray())
+            ?.toString(
+                Charset.defaultCharset())
     }
 }

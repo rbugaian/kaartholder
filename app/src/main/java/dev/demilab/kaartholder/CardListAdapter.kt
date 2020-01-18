@@ -25,26 +25,11 @@ class CardListAdapter(
     private val deleteButtonClickListener: (Card) -> Unit
 ) : RecyclerView.Adapter<CardListHolder>() {
 
-    private lateinit var encryption: Encryption
-    private var password: String? = null
-    private lateinit var iv: ByteArray
-    private lateinit var salt: ByteArray
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardListHolder {
         val inflatedView = parent.inflate(R.layout.card_list_item, false)
         val regularTypeFace = FontLoader.regular(inflatedView.context)
 
-        val prefs = inflatedView.context.getSharedPreferences("crypto", Context.MODE_PRIVATE)
-        val stringSalt = prefs.getString("salt", null)
-        val salt = Base64.decode(stringSalt, Base64.NO_WRAP)
-
-        val stringIv = prefs.getString("iv", null)
-        val iv = Base64.decode(stringIv, Base64.NO_WRAP)
-
-        password = SecurePreferences.getStringValue(inflatedView.context, "authKey", null);
-        encryption = Encryption()
-
-        return CardListHolder(inflatedView, regularTypeFace, salt, iv, password, encryption)
+        return CardListHolder(inflatedView, regularTypeFace)
     }
 
     override fun getItemCount() = cards.size
@@ -56,39 +41,28 @@ class CardListAdapter(
 
 class CardListHolder(
     v: View,
-    private val regularTypeFace: Typeface,
-    private val salt: ByteArray,
-    private val iv: ByteArray,
-    private val password: String?,
-    private val encryption: Encryption
+    private val regularTypeFace: Typeface
 ) : RecyclerView.ViewHolder(v) {
 
-    fun decryptField(field: String):String? {
-        return encryption.decrypt(encrypted = Base64.decode(field, Base64.NO_WRAP) , iv = iv, salt = salt, password = password!!.toCharArray())
-            ?.toString(
-                Charset.defaultCharset())
-    }
-
     fun bind(card: Card, clickListener: (Card) -> Unit, deleteButtonClickListener: (Card) -> Unit) {
-        val cardNameDecrypted = decryptField(card.cardName!!)
-        if (cardNameDecrypted == null) {
+        if (card.cardName == null) {
             //TODO Нужно убрать эту карточку если расшифровка неполучилась.
             itemView.visibility = View.GONE
         } else {
-            itemView.cardNameView.text = decryptField(card.cardName!!)
+            itemView.cardNameView.text = card.cardName
             itemView.cardNameView.typeface = regularTypeFace
 
-            itemView.cardNumberView?.text = decryptField(card.cardNumber!!)
+            itemView.cardNumberView?.text = card.cardNumber
             itemView.cardNumberView?.typeface = regularTypeFace
 
-            itemView.bankAccountView?.text = decryptField(card.bankAccount!!)
+            itemView.bankAccountView?.text = card.bankAccount
             itemView.bankAccountView?.typeface = regularTypeFace
 
-            itemView.expirationDateView?.text = decryptField(card.expDate!!)
+            itemView.expirationDateView?.text = card.expDate
             itemView.expirationDateView?.typeface = regularTypeFace
 
-            itemView.cardPin?.setText(decryptField(card.pinCode!!))
-            itemView.cardCvv?.setText(decryptField(card.cvvCode!!))
+            itemView.cardPin?.setText(card.pinCode)
+            itemView.cardCvv?.setText(card.cvvCode)
 
             itemView.btnHide.setOnClickListener { clickListener(card) }
 
